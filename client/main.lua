@@ -42,14 +42,16 @@ end
 local function toggleSeatbelt()
     if harnessOn then return end
     seatbeltOn = not seatbeltOn
+    LocalPlayer.state:set('seatbelt', seatbeltOn, true)
     TriggerEvent('seatbelt:client:ToggleSeatbelt')
     TriggerServerEvent('InteractSound_SV:PlayOnSource', seatbeltOn and 'carbuckle' or 'carunbuckle', 0.25)
 end
 
 local function toggleHarness()
     harnessOn = not harnessOn
-    if not harnessOn then return end
-    toggleSeatbelt()
+    if harnessOn and not seatbeltOn then
+        toggleSeatbelt()
+    end
 end
 
 local function resetHandBrake()
@@ -93,7 +95,7 @@ local function ejectOrDamageHarness()
         ejectFromVehicle()
     else
         harnessHp -= 1
-        TriggerServerEvent('seatbelt:DoHarnessDamage', harnessHp, harnessData)
+        TriggerServerEvent('qbx_seatbelt:DoHarnessDamage', harnessHp, harnessData)
     end
 end
 
@@ -230,7 +232,7 @@ end)
 
 -- Events
 
-RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData)
+RegisterNetEvent('qbx_seatbelt:client:UseHarness', function(ItemData)
     local class = GetVehicleClass(cache.vehicle)
     if not cache.vehicle or class == 8 or class == 13 or class == 14 then
         exports.qbx_core:Notify(locale('notify.notInCar'), 'error')
@@ -250,11 +252,8 @@ RegisterNetEvent('seatbelt:client:UseHarness', function(ItemData)
         }) then
             LocalPlayer.state:set('invBusy', false, true)
             toggleHarness()
-            TriggerServerEvent('equip:harness', ItemData)
+            TriggerServerEvent('qbx_seatbelt:server:equip', ItemData.slot)
         end
-        harnessHp = ItemData.metadata.harnessuses
-        harnessData = ItemData
-        TriggerEvent('hud:client:UpdateHarness', harnessHp)
     else
         LocalPlayer.state:set('invBusy', true, true)
         if lib.progressCircle({
