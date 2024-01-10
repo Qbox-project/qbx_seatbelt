@@ -28,5 +28,6 @@ RegisterNetEvent('qbx_seatbelt:DoHarnessDamage', function(hp, data)
     else
         harness.metadata.harnessuses -= 1
         exports.ox_inventory:SetMetadata(src, harness.slot, harness.metadata)
+        TriggerClientEvent("hud:client:UpdateHarness", source, harness.metadata.harnessuses)
     end
 end)
