@@ -1,25 +1,21 @@
 exports.qbx_core:CreateUseableItem('harness', function(source, item)
-    TriggerClientEvent('seatbelt:client:UseHarness', source, item)
+    TriggerClientEvent('qbx_seatbelt:client:UseHarness', source, item)
 end)
 
-RegisterNetEvent('equip:harness', function(item)
-    local src = source
-    local player = exports.qbx_core:GetPlayer(src)
-
-    if not player then return end
-
-    if item.metadata.harnessuses == nil then
-        item.metadata.harnessuses = 19
-        exports.ox_inventory:SetMetadata(src, item.slot, item.metadata)
-    elseif item.metadata.harnessuses == 1 then
-        exports.ox_inventory:RemoveItem(src, 'harness', 1)
+RegisterNetEvent('qbx_seatbelt:server:equip', function(slotid)
+    local item = exports.ox_inventory:GetSlot(source, slotid)
+    if not item then return end
+    local itemData = item.metadata
+    local newDura = (itemData.durability or 100) - 5
+    if newDura <= 0 then
+        exports.ox_inventory:RemoveItem(source, item.name, 1, itemData, slotid)
     else
-        item.metadata.harnessuses -= 1
-        exports.ox_inventory:SetMetadata(src, item.slot, item.metadata)
+        itemData.durability = newDura
+        exports.ox_inventory:SetMetadata(source, slotid, itemData)
     end
 end)
 
-RegisterNetEvent('seatbelt:DoHarnessDamage', function(hp, data)
+RegisterNetEvent('qbx_seatbelt:DoHarnessDamage', function(hp, data)
     local src = source
     local player = exports.qbx_core:GetPlayer(src)
 
