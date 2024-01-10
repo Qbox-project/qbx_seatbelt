@@ -1,0 +1,10 @@
+{
+    "progress" : {
+        "attachHarness": "Attaching Race Harness",
+        "removeHarness": "Removing Race Harness"
+    },
+    "notify": {
+        "notInCar": "You're not in a car"
+    },
+    "toggleCommand": "Toggle Seatbelt"
+}
