@@ -6,7 +6,7 @@ end)
 RegisterNetEvent('equip:harness', function(source, item)
     local player = exports.qbx_core:GetPlayer(source)
 
-    if not source or player then return end
+    if not source or not player then return end
 
     if item.metadata.harnessuses == nil then
         item.metadata.harnessuses = 19
