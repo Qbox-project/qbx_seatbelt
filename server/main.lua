@@ -1,29 +1,29 @@
 exports.qbx_core:CreateUseableItem('harness', function(source, item)
+    if not source then return end
     TriggerClientEvent('seatbelt:client:UseHarness', source, item)
 end)
 
-RegisterNetEvent('equip:harness', function(item)
-    local src = source
-    local player = exports.qbx_core:GetPlayer(src)
+RegisterNetEvent('equip:harness', function(source, item)
+    local player = exports.qbx_core:GetPlayer(source)
 
-    if not player then return end
+    if not source or player then return end
 
     if item.metadata.harnessuses == nil then
         item.metadata.harnessuses = 19
-        exports.ox_inventory:SetMetadata(src, item.slot, item.metadata)
+        exports.ox_inventory:SetMetadata(source, item.slot, item.metadata)
     elseif item.metadata.harnessuses == 1 then
-        exports.ox_inventory:RemoveItem(src, 'harness', 1)
+        exports.ox_inventory:RemoveItem(source, 'harness', 1)
     else
         item.metadata.harnessuses -= 1
-        exports.ox_inventory:SetMetadata(src, item.slot, item.metadata)
+        exports.ox_inventory:SetMetadata(source, item.slot, item.metadata)
     end
 end)
 
 RegisterNetEvent('seatbelt:DoHarnessDamage', function(source, hp, data)
     if not source then return end
-    local player = exports.qbx_core:GetPlayer(src)
+    local player = exports.qbx_core:GetPlayer(source)
 
-    local harness = exports.ox_inventory:Search(src, 1, 'harness')
+    local harness = exports.ox_inventory:Search(source, 1, 'harness')
 
     if not player then return end
 
