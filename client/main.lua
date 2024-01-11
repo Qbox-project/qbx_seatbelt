@@ -39,17 +39,26 @@ local function ejectFromVehicle()
     end
 end
 
+local function playBuckleSound(seatbelt)
+    lib.waitFor(function()
+        return RequestScriptAudioBank('audiodirectory/seatbelt_sounds', false)
+    end, 'no soundbank found', 1000)
+
+    local soundId = GetSoundId()
+    local soundName = seatbelt and 'carunbuckle' or 'carbuckle'
+    PlaySoundFromEntity(soundId, soundName, cache.ped, 'seatbelt_sounds', true, 0)
+end
+
 local function toggleSeatbelt()
     if harnessOn then return end
     seatbeltOn = not seatbeltOn
     TriggerEvent('seatbelt:client:ToggleSeatbelt')
-    TriggerServerEvent('InteractSound_SV:PlayOnSource', seatbeltOn and 'carbuckle' or 'carunbuckle', 0.25)
+    playBuckleSound(seatbeltOn)
 end
 
 local function toggleHarness()
     harnessOn = not harnessOn
-    if not harnessOn then return end
-    toggleSeatbelt()
+    if harnessOn then toggleSeatbelt() end
 end
 
 local function resetHandBrake()

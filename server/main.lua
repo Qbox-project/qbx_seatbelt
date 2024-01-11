@@ -19,8 +19,8 @@ RegisterNetEvent('equip:harness', function(item)
     end
 end)
 
-RegisterNetEvent('seatbelt:DoHarnessDamage', function(hp, data)
-    local src = source
+RegisterNetEvent('seatbelt:DoHarnessDamage', function(source, hp, data)
+    if not source then return end
     local player = exports.qbx_core:GetPlayer(src)
 
     local harness = exports.ox_inventory:Search(src, 1, 'harness')
@@ -28,10 +28,10 @@ RegisterNetEvent('seatbelt:DoHarnessDamage', function(hp, data)
     if not player then return end
 
     if hp == 0 then
-        exports.ox_inventory:RemoveItem(src, 'harness', 1, data.metadata, data.slot)
+        exports.ox_inventory:RemoveItem(source, 'harness', 1, data.metadata, data.slot)
     else
         harness.metadata.harnessuses -= 1
-        exports.ox_inventory:SetMetadata(src, harness.slot, harness.metadata)
+        exports.ox_inventory:SetMetadata(source, harness.slot, harness.metadata)
         TriggerClientEvent("hud:client:UpdateHarness", source, harness.metadata.harnessuses)
     end
 end)
