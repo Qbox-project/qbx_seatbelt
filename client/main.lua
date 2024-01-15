@@ -27,6 +27,7 @@ end
 local function toggleHarness()
     harnessOn = not harnessOn
     LocalPlayer.state:set('harness', harnessOn, true)
+    LocalPlayer.state:set('seatbelt', harnessOn, true) -- syncs the seatbelt icon with the harness status
 
     qbx.playAudio({
         audioName = harnessOn and 'Clothes_On' or 'Clothes_Off',
