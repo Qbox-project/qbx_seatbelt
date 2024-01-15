@@ -125,11 +125,14 @@ RegisterNetEvent('qbx_seatbelt:client:UseHarness', function(ItemData)
 end)
 
 -- Register Key
-RegisterCommand('toggleseatbelt', function()
-    if not cache.vehicle or IsPauseMenuActive() then return end
-    local class = GetVehicleClass(cache.vehicle)
-    if class == 8 or class == 13 or class == 14 then return end
-    toggleSeatbelt()
-end, false)
-
-RegisterKeyMapping('toggleseatbelt', locale('toggleCommand'), 'keyboard', config.keybind)
+lib.addKeybind({
+    name = 'toggleseatbelt',
+    description = locale('toggleCommand'),
+    defaultKey = config.keybind,
+    onPressed = function(self)
+        if not cache.vehicle or IsPauseMenuActive() then return end
+        local class = GetVehicleClass(cache.vehicle)
+        if class == 8 or class == 13 or class == 14 then return end
+        toggleSeatbelt()
+    end
+})
