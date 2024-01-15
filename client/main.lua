@@ -129,7 +129,7 @@ lib.addKeybind({
     name = 'toggleseatbelt',
     description = locale('toggleCommand'),
     defaultKey = config.keybind,
-    onPressed = function(self)
+    onPressed = function()
         if not cache.vehicle or IsPauseMenuActive() then return end
         local class = GetVehicleClass(cache.vehicle)
         if class == 8 or class == 13 or class == 14 then return end
