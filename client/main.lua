@@ -19,7 +19,7 @@ local function toggleSeatbelt()
     seatbeltOn = not seatbeltOn
     LocalPlayer.state:set('seatbelt', seatbeltOn, true)
 
-    SetFlyThroughWindscreenParams(seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 10, 20, 0)
+    SetFlyThroughWindscreenParams(seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 25.0, 17.0, 0.0)
     TriggerEvent('seatbelt:client:ToggleSeatbelt')
     TriggerServerEvent('InteractSound_SV:PlayOnSource', seatbeltOn and 'carbuckle' or 'carunbuckle', 0.25)
 end
@@ -37,7 +37,7 @@ local function toggleHarness()
     })
 
     if config.harness.disableFlyingThroughWindscreen then
-        SetFlyThroughWindscreenParams(harnessOn and minSpeeds.harness or seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 10, 20, 0)
+        SetFlyThroughWindscreenParams(harnessOn and minSpeeds.harness or seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 25.0, 17.0, 0.0)
     end
     SetPedConfigFlag(cache.ped, 32, not harnessOn) -- PED_FLAG_CAN_FLY_THRU_WINDSCREEN
 end
@@ -66,7 +66,7 @@ exports('HasHarness', HasHarness)
 
 -- Main Thread
 CreateThread(function()
-    SetFlyThroughWindscreenParams(minSpeeds.unbuckled, 10, 20, 0)
+    SetFlyThroughWindscreenParams(minSpeeds.unbuckled, 25.0, 17.0, 0.0)
 end)
 
 lib.onCache('vehicle', function()
