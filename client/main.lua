@@ -17,7 +17,7 @@ local minSpeeds = {
 local function toggleSeatbelt()
     if harnessOn then return end
     seatbeltOn = not seatbeltOn
-    LocalPlayer.state:set('seatbelt', seatbeltOn, true)
+    LocalPlayer.state:set('seatbelt', seatbeltOn)
 
     SetFlyThroughWindscreenParams(seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 25.0, 17.0, 0.0)
     TriggerEvent('seatbelt:client:ToggleSeatbelt')
@@ -26,8 +26,8 @@ end
 
 local function toggleHarness()
     harnessOn = not harnessOn
-    LocalPlayer.state:set('harness', harnessOn, true)
-    LocalPlayer.state:set('seatbelt', harnessOn, true) -- syncs the seatbelt icon with the harness status
+    LocalPlayer.state:set('harness', harnessOn)
+    LocalPlayer.state:set('seatbelt', harnessOn) -- syncs the seatbelt icon with the harness status
 
     qbx.playAudio({
         audioName = harnessOn and 'Clothes_On' or 'Clothes_Off',
@@ -42,7 +42,7 @@ local function toggleHarness()
         end
     else
         if harnessOn then
-            SetFlyThroughWindscreenParams(harnessOn and minSpeeds.harness or seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 25.0, 17.0, 0.0)
+            SetFlyThroughWindscreenParams(minSpeeds.harness, 25.0, 17.0, 0.0)
         else
             SetFlyThroughWindscreenParams(seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 25.0, 17.0, 0.0)
         end
@@ -61,6 +61,8 @@ local function seatbelt()
     end
     seatbeltOn = false
     harnessOn = false
+    LocalPlayer.state:set('seatbelt', seatbeltOn)
+    LocalPlayer.state:set('harness', harnessOn)
 end
 
 -- Export
