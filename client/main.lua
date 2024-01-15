@@ -35,9 +35,18 @@ local function toggleHarness()
     })
 
     if config.harness.disableFlyingThroughWindscreen then
-        SetFlyThroughWindscreenParams(harnessOn and minSpeeds.harness or seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 25.0, 17.0, 0.0)
+        if harnessOn then
+            SetPedConfigFlag(cache.ped, 32, false) -- PED_FLAG_CAN_FLY_THRU_WINDSCREEN
+        else
+            SetPedConfigFlag(cache.ped, 32, true) -- PED_FLAG_CAN_FLY_THRU_WINDSCREEN
+        end
+    else
+        if harnessOn then
+            SetFlyThroughWindscreenParams(harnessOn and minSpeeds.harness or seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 25.0, 17.0, 0.0)
+        else
+            SetFlyThroughWindscreenParams(seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 25.0, 17.0, 0.0)
+        end
     end
-    SetPedConfigFlag(cache.ped, 32, not harnessOn) -- PED_FLAG_CAN_FLY_THRU_WINDSCREEN
 end
 
 local function seatbelt()
