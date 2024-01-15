@@ -27,9 +27,6 @@ end
 local function toggleHarness()
     harnessOn = not harnessOn
     LocalPlayer.state:set('harness', harnessOn, true)
-    if harnessOn and not seatbeltOn then
-        toggleSeatbelt()
-    end
 
     qbx.playAudio({
         audioName = harnessOn and 'Clothes_On' or 'Clothes_Off',
