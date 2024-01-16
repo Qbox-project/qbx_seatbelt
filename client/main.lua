@@ -1,8 +1,7 @@
 lib.locale()
 
 local config = require 'config.client'
-local seatbeltOn = LocalPlayer.state.seatbelt
-local harnessOn = LocalPlayer.state.harness
+local playerState = LocalPlayer.state
 local speedMultiplier = config.useMPH and 2.237 or 3.6
 local minSpeeds = {
     unbuckled = config.minSpeedUnbuckled * speedMultiplier,
@@ -22,17 +21,17 @@ end
 
 -- Functions
 local function toggleSeatbelt()
-    if harnessOn then return end
-    seatbeltOn = not seatbeltOn
-    LocalPlayer.state:set('seatbelt', seatbeltOn)
+    if playerState.harness then return end
+    local seatbeltOn = not playerState.seatbelt
+    playerState.seatbelt = seatbeltOn
     SetFlyThroughWindscreenParams(seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 25.0, 17.0, 0.0)
     TriggerEvent('seatbelt:client:ToggleSeatbelt')
     playBuckleSound(seatbeltOn)
 end
 
 local function toggleHarness()
-    harnessOn = not harnessOn
-    LocalPlayer.state:set('harness', harnessOn)
+    local harnessOn = not playerState.harness
+    playerState.harness = harnessOn
     TriggerEvent('seatbelt:client:ToggleSeatbelt')
     playBuckleSound(harnessOn)
 
@@ -40,7 +39,7 @@ local function toggleHarness()
     if config.harness.disableFlyingThroughWindscreen then
         SetPedConfigFlag(cache.ped, 32, canFlyThroughWindscreen) -- PED_FLAG_CAN_FLY_THRU_WINDSCREEN
     else
-        local minSpeed = harnessOn and minSpeeds.harness or (seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled)
+        local minSpeed = harnessOn and minSpeeds.harness or (playerState.seatbelt and minSpeeds.buckled or minSpeeds.unbuckled)
         SetFlyThroughWindscreenParams(minSpeed, 25.0, 17.0, 0.0)
     end
 end
@@ -48,20 +47,20 @@ end
 local function seatbelt()
     while cache.vehicle do
         local sleep = 1000
-        if seatbeltOn or harnessOn then
+        if playerState.seatbelt or playerState.harness then
             sleep = 0
             DisableControlAction(0, 75, true)
             DisableControlAction(27, 75, true)
         end
         Wait(sleep)
     end
-    LocalPlayer.state:set('harness', false)
-    LocalPlayer.state:set('seatbelt', false)
+    playerState.seatbelt = false
+    playerState.harness = false
 end
 
 -- Export
 function HasHarness()
-    return harnessOn
+    return playerState.harness
 end
 
 --- @deprecated Use `state.seatbelt` instead
@@ -79,7 +78,7 @@ end)
 
 -- Events
 RegisterNetEvent('qbx_seatbelt:client:UseHarness', function(ItemData)
-    if seatbeltOn then return end
+    if playerState.seatbelt then return end
 
     local class = GetVehicleClass(cache.vehicle)
 
@@ -88,7 +87,7 @@ RegisterNetEvent('qbx_seatbelt:client:UseHarness', function(ItemData)
         return
     end
 
-    if not harnessOn then
+    if not playerState.harness then
         LocalPlayer.state:set('invBusy', true, true)
         if lib.progressCircle({
             duration = 5000,
