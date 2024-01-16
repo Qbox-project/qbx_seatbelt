@@ -4,9 +4,9 @@ local config = require 'config.client'
 local playerState = LocalPlayer.state
 local speedMultiplier = config.useMPH and 2.237 or 3.6
 local minSpeeds = {
-    unbuckled = config.minSpeedUnbuckled * speedMultiplier,
-    buckled = config.minSpeedBuckled * speedMultiplier,
-    harness = config.harness.minSpeed * speedMultiplier
+    unbuckled = config.minSpeedUnbuckled / speedMultiplier,
+    buckled = config.minSpeedBuckled / speedMultiplier,
+    harness = config.harness.minSpeed / speedMultiplier
 }
 
 local function playBuckleSound(seatbelt)
