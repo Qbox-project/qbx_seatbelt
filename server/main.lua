@@ -1,3 +1,5 @@
+SetConvarReplicated('game_enableFlyThroughWindscreen', 'true')
+
 exports.qbx_core:CreateUseableItem('harness', function(source, item)
     TriggerClientEvent('qbx_seatbelt:client:UseHarness', source, item)
 end)
