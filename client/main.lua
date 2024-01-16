@@ -88,7 +88,6 @@ RegisterNetEvent('qbx_seatbelt:client:UseHarness', function(ItemData)
     end
 
     if not playerState.harness then
-        LocalPlayer.state:set('invBusy', true, true)
         if lib.progressCircle({
             duration = 5000,
             label = locale('progress.attachHarness'),
@@ -99,12 +98,10 @@ RegisterNetEvent('qbx_seatbelt:client:UseHarness', function(ItemData)
                 combat = true
             }
         }) then
-            LocalPlayer.state:set('invBusy', false, true)
             TriggerServerEvent('qbx_seatbelt:server:equip', ItemData.slot)
             toggleHarness()
         end
     else
-        LocalPlayer.state:set('invBusy', true, true)
         if lib.progressCircle({
             duration = 5000,
             label = locale('progress.removeHarness'),
@@ -115,7 +112,6 @@ RegisterNetEvent('qbx_seatbelt:client:UseHarness', function(ItemData)
                 combat = true
             }
         }) then
-            LocalPlayer.state:set('invBusy', false, true)
             toggleHarness()
         end
     end
