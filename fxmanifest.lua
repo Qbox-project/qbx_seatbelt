@@ -16,8 +16,13 @@ server_script 'server/main.lua'
 
 files {
     'locales/*.json',
-    'config/*.lua'
+    'config/*.lua',
+    'audiodirectory/seatbelt_sounds.awc',
+    'data/seatbelt_sounds.dat54.rel'
 }
+
+data_file 'AUDIO_WAVEPACK' 'audiodirectory'
+data_file 'AUDIO_SOUNDDATA' 'data/seatbelt_sounds.dat'
 
 lua54 'yes'
 use_experimental_fxv2_oal 'yes'

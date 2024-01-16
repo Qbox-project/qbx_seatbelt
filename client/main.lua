@@ -8,10 +8,20 @@ local seatbeltOn = false
 local harnessOn = false
 local speedMultiplier = config.useMPH and 2.237 or 3.6
 local minSpeeds = {
-    unbuckled = config.minSpeedUnbuckled / speedMultiplier,
-    buckled = config.minSpeedBuckled / speedMultiplier,
-    harness = config.harness.minSpeed  / speedMultiplier
+    unbuckled = config.minSpeedUnbuckled * speedMultiplier,
+    buckled = config.minSpeedBuckled * speedMultiplier,
+    harness = config.harness.minSpeed * speedMultiplier
 }
+
+local function playBuckleSound(buckleState)
+    qbx.loadAudioBank('audiodirectory/seatbelt_sounds')
+    qbx.playAudio({
+        audioName = buckleState and 'carbuckle' or 'carunbuckle',
+        audioRef = 'seatbelt_soundset',
+        source = cache.ped
+    })
+    ReleaseNamedScriptAudioBank('audiodirectory/seatbelt_sounds')
+end
 
 -- Functions
 local function toggleSeatbelt()
@@ -21,7 +31,7 @@ local function toggleSeatbelt()
 
     SetFlyThroughWindscreenParams(seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 25.0, 17.0, 0.0)
     TriggerEvent('seatbelt:client:ToggleSeatbelt')
-    TriggerServerEvent('InteractSound_SV:PlayOnSource', seatbeltOn and 'carbuckle' or 'carunbuckle', 0.25)
+    playBuckleSound(seatbeltOn)
 end
 
 local function toggleHarness()
@@ -29,10 +39,7 @@ local function toggleHarness()
     LocalPlayer.state:set('harness', harnessOn)
     LocalPlayer.state:set('seatbelt', harnessOn) -- syncs the seatbelt icon with the harness status
 
-    qbx.playAudio({
-        audioName = harnessOn and 'Clothes_On' or 'Clothes_Off',
-        audioRef = 'GTAO_Hot_Tub_Sounds'
-    })
+    playBuckleSound(harnessOn)
 
     if config.harness.disableFlyingThroughWindscreen then
         if harnessOn then
@@ -85,6 +92,7 @@ end)
 
 -- Events
 RegisterNetEvent('qbx_seatbelt:client:UseHarness', function(ItemData)
+    if seatbeltOn then return end
     local class = GetVehicleClass(cache.vehicle)
     if not cache.vehicle or class == 8 or class == 13 or class == 14 then
         exports.qbx_core:Notify(locale('notify.notInCar'), 'error')
@@ -125,11 +133,14 @@ RegisterNetEvent('qbx_seatbelt:client:UseHarness', function(ItemData)
 end)
 
 -- Register Key
-RegisterCommand('toggleseatbelt', function()
-    if not cache.vehicle or IsPauseMenuActive() then return end
-    local class = GetVehicleClass(cache.vehicle)
-    if class == 8 or class == 13 or class == 14 then return end
-    toggleSeatbelt()
-end, false)
-
-RegisterKeyMapping('toggleseatbelt', locale('toggleCommand'), 'keyboard', config.keybind)
+lib.addKeybind({
+    name = 'toggleseatbelt',
+    description = locale('toggleCommand'),
+    defaultKey = config.keybind,
+    onPressed = function()
+        if not cache.vehicle or IsPauseMenuActive() then return end
+        local class = GetVehicleClass(cache.vehicle)
+        if class == 8 or class == 13 or class == 14 then return end
+        toggleSeatbelt()
+    end
+})
