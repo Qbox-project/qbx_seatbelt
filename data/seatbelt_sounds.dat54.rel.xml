@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<Dat54>
+  <Version value="7314721"/>
+  <ContainerPaths>
+    <Item>audiodirectory\seatbelt_sounds</Item>
+  </ContainerPaths>
+  <Items>
+    <Item type="SimpleSound">
+      <Name>carbuckle_sp</Name>
+      <Header>
+        <Flags value="0x00008004"/>
+        <Volume value="200"/>
+        <Category>scripted</Category>
+      </Header>
+      <ContainerName>audiodirectory/seatbelt_sounds</ContainerName>
+      <FileName>carbuckle</FileName>
+      <WaveSlotNum value="0"/>
+    </Item>
+    <Item type="SimpleSound">
+      <Name>carunbuckle_sp</Name>
+      <Header>
+        <Flags value="0x00008004"/>
+        <Volume value="200"/>
+        <Category>scripted</Category>
+      </Header>
+      <ContainerName>audiodirectory/seatbelt_sounds</ContainerName>
+      <FileName>carunbuckle</FileName>
+      <WaveSlotNum value="0"/>
+    </Item>
+    <Item type="SoundSet">
+      <Name>seatbelt_soundset</Name>
+      <Header>
+        <Flags value="0xAAAAAAAA"/>
+      </Header>
+      <SoundSets>
+        <Item>
+          <ScriptName>carbuckle</ScriptName>
+          <ChildSound>carbuckle_sp</ChildSound>
+        </Item>
+        <Item>
+          <ScriptName>carunbuckle</ScriptName>
+          <ChildSound>carunbuckle_sp</ChildSound>
+        </Item>
+      </SoundSets>
+    </Item>
+  </Items>
+</Dat54>
