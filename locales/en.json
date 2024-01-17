@@ -6,5 +6,9 @@
     "notify": {
         "notInCar": "You're not in a car"
     },
+    "error": {
+        "seatbelton": "Take your seatbelt off first",
+        "harnesson": "Take your harness off first"
+    },
     "toggleCommand": "Toggle Seatbelt"
 }
