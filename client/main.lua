@@ -9,6 +9,7 @@ local minSpeeds = {
     harness = config.harness.minSpeed / speedMultiplier
 }
 
+-- Functions
 local function playBuckleSound(seatbelt)
     qbx.loadAudioBank('audiodirectory/seatbelt_sounds')
     qbx.playAudio({
@@ -19,7 +20,6 @@ local function playBuckleSound(seatbelt)
     ReleaseNamedScriptAudioBank('audiodirectory/seatbelt_sounds')
 end
 
--- Functions
 local function toggleSeatbelt()
     if playerState.harness then
         exports.qbx_core:Notify(locale('error.harnesson'), 'error')
