@@ -9,6 +9,7 @@ local minSpeeds = {
     harness = config.harness.minSpeed / speedMultiplier
 }
 
+-- Functions
 local function playBuckleSound(seatbelt)
     qbx.loadAudioBank('audiodirectory/seatbelt_sounds')
     qbx.playAudio({
@@ -19,12 +20,14 @@ local function playBuckleSound(seatbelt)
     ReleaseNamedScriptAudioBank('audiodirectory/seatbelt_sounds')
 end
 
--- Functions
 local function toggleSeatbelt()
-    if playerState.harness then return end
+    if playerState.harness then
+        exports.qbx_core:Notify(locale('error.harnesson'), 'error')
+        return
+    end
     local seatbeltOn = not playerState.seatbelt
     playerState.seatbelt = seatbeltOn
-    SetFlyThroughWindscreenParams(seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 25.0, 17.0, 0.0)
+    SetFlyThroughWindscreenParams(seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 1.0, 1.0, 1.0)
     TriggerEvent('seatbelt:client:ToggleSeatbelt')
     playBuckleSound(seatbeltOn)
 end
@@ -40,7 +43,7 @@ local function toggleHarness()
         SetPedConfigFlag(cache.ped, 32, canFlyThroughWindscreen) -- PED_FLAG_CAN_FLY_THRU_WINDSCREEN
     else
         local minSpeed = harnessOn and minSpeeds.harness or (playerState.seatbelt and minSpeeds.buckled or minSpeeds.unbuckled)
-        SetFlyThroughWindscreenParams(minSpeed, 25.0, 17.0, 0.0)
+        SetFlyThroughWindscreenParams(minSpeed, 1.0, 1.0, 1.0)
     end
 end
 
@@ -68,7 +71,7 @@ exports('HasHarness', HasHarness)
 
 -- Main Thread
 CreateThread(function()
-    SetFlyThroughWindscreenParams(minSpeeds.unbuckled, 25.0, 17.0, 0.0)
+    SetFlyThroughWindscreenParams(minSpeeds.unbuckled, 1.0, 1.0, 1.0)
 end)
 
 lib.onCache('vehicle', function()
@@ -78,7 +81,10 @@ end)
 
 -- Events
 RegisterNetEvent('qbx_seatbelt:client:UseHarness', function(ItemData)
-    if playerState.seatbelt then return end
+    if playerState.seatbelt then
+        exports.qbx_core:Notify(locale('error.seatbelton'), 'error')
+        return
+    end
 
     local class = GetVehicleClass(cache.vehicle)
 
