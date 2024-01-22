@@ -27,7 +27,7 @@ local function toggleSeatbelt()
     end
     local seatbeltOn = not playerState.seatbelt
     playerState.seatbelt = seatbeltOn
-    SetFlyThroughWindscreenParams(seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 1.0, 1.0, 1.0)
+    SetFlyThroughWindscreenParams(seatbeltOn and minSpeeds.buckled or minSpeeds.unbuckled, 1.0, 17.0, 10.0)
     TriggerEvent('seatbelt:client:ToggleSeatbelt')
     playBuckleSound(seatbeltOn)
 end
@@ -43,7 +43,7 @@ local function toggleHarness()
         SetPedConfigFlag(cache.ped, 32, canFlyThroughWindscreen) -- PED_FLAG_CAN_FLY_THRU_WINDSCREEN
     else
         local minSpeed = harnessOn and minSpeeds.harness or (playerState.seatbelt and minSpeeds.buckled or minSpeeds.unbuckled)
-        SetFlyThroughWindscreenParams(minSpeed, 1.0, 1.0, 1.0)
+        SetFlyThroughWindscreenParams(minSpeed, 1.0, 17.0, 10.0)
     end
 end
 
@@ -71,7 +71,7 @@ exports('HasHarness', HasHarness)
 
 -- Main Thread
 CreateThread(function()
-    SetFlyThroughWindscreenParams(minSpeeds.unbuckled, 1.0, 1.0, 1.0)
+    SetFlyThroughWindscreenParams(minSpeeds.unbuckled, 1.0, 17.0, 10.0)
 end)
 
 lib.onCache('vehicle', function()
