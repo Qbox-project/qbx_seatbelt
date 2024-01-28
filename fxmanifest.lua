@@ -5,7 +5,6 @@ description 'qbx_seatbelt'
 repository 'https://github.com/Qbox-project/qbx_seatbelt'
 version '1.0.0'
 
-ox_lib 'locale'
 shared_script '@ox_lib/init.lua'
 
 client_scripts {

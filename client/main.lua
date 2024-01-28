@@ -1,3 +1,5 @@
+lib.locale()
+
 local config = require 'config.client'
 local playerState = LocalPlayer.state
 local speedMultiplier = config.useMPH and 2.237 or 3.6
