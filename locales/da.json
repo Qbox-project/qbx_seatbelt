@@ -1,0 +1,14 @@
+{
+    "progress" : {
+        "attachHarness": "Spænder racerselen",
+        "removeHarness": "Fjerner racerselen"
+    },
+    "notify": {
+        "notInCar": "Du er ikke i et køretøj"
+    },
+    "error": {
+        "seatbelton": "Fjern din sele først",
+        "harnesson": "Fjern din racersele først"
+    },
+    "toggleCommand": "Spænd eller løsn selen"
+}
