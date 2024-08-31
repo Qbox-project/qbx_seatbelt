@@ -1,0 +1,14 @@
+{
+    "progress" : {
+        "attachHarness": "A colocar o arnês de corrida",
+        "removeHarness": "A retirar o arnês de corrida"
+    },
+    "notify": {
+        "notInCar": "Não estás dentro de um carro"
+    },
+    "error": {
+        "seatbelton": "Tira primeiro o cinto de segurança",
+        "harnesson": "Tira primeiro o arnês"
+    },
+    "toggleCommand": "Alternar Cinto de Segurança"
+}
