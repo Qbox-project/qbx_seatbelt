@@ -1,0 +1,14 @@
+{
+    "progress": {
+        "attachHarness": "Colocando Cinto de Corrida",
+        "removeHarness": "Removendo Cinto de Corrida"
+    },
+    "notify": {
+        "notInCar": "Você não está em um carro"
+    },
+    "error": {
+        "seatbelton": "Tire o cinto de segurança primeiro",
+        "harnesson": "Tire o cinto de corrida primeiro"
+    },
+    "toggleCommand": "Tirar/colocar Cinto de Segurança"
+}
