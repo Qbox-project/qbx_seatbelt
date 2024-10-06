@@ -1,0 +1,14 @@
+{
+    "progress" : {
+        "attachHarness": "Renn-Gurt anlegen",
+        "removeHarness": "Renn-Gurt abnehmen"
+    },
+    "notify": {
+        "notInCar": "Du bist nicht in einem Auto"
+    },
+    "error": {
+        "seatbelton": "Nimm zuerst deinen Sicherheitsgurt ab",
+        "harnesson": "Nimm zuerst deinen Gurt ab"
+    },
+    "toggleCommand": "Sicherheitsgurt umschalten"
+}
