@@ -1,0 +1,14 @@
+{
+    "progress": {
+        "attachHarness": "Zakładanie pasów wyścigowych",
+        "removeHarness": "Zdejmowanie pasów wyścigowych"
+    },
+    "notify": {
+        "notInCar": "Nie jesteś w pojeździe"
+    },
+    "error": {
+        "seatbelton": "Najpierw odepnij pasy bezpieczeństwa",
+        "harnesson": "Najpierw zdejmij pasy wyścigowe"
+    },
+    "toggleCommand": "Przełącz pasy bezpieczeństwa"
+}
