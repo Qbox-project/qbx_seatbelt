@@ -1,0 +1,14 @@
+{
+  "progress": {
+    "attachHarness": "Yarış kemeri takılıyor...",
+    "removeHarness": "Yarış kemeri çıkarılıyor..."
+  },
+  "notify": {
+    "notInCar": "Araçta değilsin"
+  },
+  "error": {
+    "seatbelton": "Önce emniyet kemerini çıkar",
+    "harnesson": "Önce yarış kemerini çıkar"
+  },
+  "toggleCommand": "Emniyet Kemerini Tak/Çıkar"
+}
