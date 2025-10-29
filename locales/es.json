@@ -1,0 +1,14 @@
+{
+    "progress" : {
+        "attachHarness": "Colocando el arnés de competición...",
+        "removeHarness": "Quitando el arnés de competición..."
+    },
+    "notify": {
+        "notInCar": "Debes estar dentro del vehículo."
+    },
+    "error": {
+        "seatbelton": "Quitate el cinturón de seguridad.",
+        "harnesson": "Quitate el arnés de competición."
+    },
+    "toggleCommand": "Alternar cinturón de seguridad"
+}
