@@ -1,0 +1,14 @@
+{
+    "progress" : {
+        "attachHarness": "レーシングハーネスを装着中",
+        "removeHarness": "レーシングハーネスを取り外し中"
+    },
+    "notify": {
+        "notInCar": "車に乗っていません"
+    },
+    "error": {
+        "seatbelton": "先にシートベルトを外してください",
+        "harnesson": "先にハーネスを取り外してください"
+    },
+    "toggleCommand": "シートベルトの切り替え"
+}
