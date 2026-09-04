@@ -1,0 +1,14 @@
+{
+    "progress": {
+        "attachHarness": "Raceharnas vastmaken",
+        "removeHarness": "Raceharnas losmaken"
+    },
+    "notify": {
+        "notInCar": "Je zit niet in een auto"
+    },
+    "error": {
+        "seatbelton": "Maak eerst je veiligheidsgordel los",
+        "harnesson": "Maak eerst je raceharnas los"
+    },
+    "toggleCommand": "Veiligheidsgordel aan- of uitdoen"
+}
